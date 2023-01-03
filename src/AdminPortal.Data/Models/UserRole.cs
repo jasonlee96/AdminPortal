@@ -8,7 +8,7 @@
     public class UserRole
     {
         [Key, Required]
-        public virtual int UserRoleId { get; set; }
+        public virtual int Id { get; set; }
 
         [Required, ForeignKey(nameof(User))]
         public virtual int UserId { get; set; }

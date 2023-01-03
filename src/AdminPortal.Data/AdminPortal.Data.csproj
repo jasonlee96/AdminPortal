@@ -19,5 +19,9 @@
       <PrivateAssets></PrivateAssets>
     </PackageReference>
   </ItemGroup>
+	
+	<ItemGroup>
+		<Using Include="AdminPortal.Data.Enums"/>
+	</ItemGroup>
 
 </Project>
