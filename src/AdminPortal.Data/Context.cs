@@ -69,5 +69,10 @@ namespace AdminPortal.Data
             get;
             set;
         }
+        public virtual DbSet<JwtToken> JwtTokens
+        {
+            get;
+            set;
+        }
     }
 }

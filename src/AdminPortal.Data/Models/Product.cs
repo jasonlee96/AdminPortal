@@ -26,7 +26,7 @@ namespace AdminPortal.Data.Models
 
         [Required]
         [Column(TypeName = "nvarchar(20)")]
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
 
         public virtual string Description { get; set; }
 

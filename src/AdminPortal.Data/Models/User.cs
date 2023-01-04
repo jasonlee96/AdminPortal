@@ -31,7 +31,10 @@
 
         [Required]
         [Column(TypeName = "nvarchar(20)")]
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
+
+        public virtual DateTime LastLoginDate { get; set; }
+        public virtual string LastLoginIP { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public virtual string NormalizedEmail { get; private set; }

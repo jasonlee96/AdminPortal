@@ -21,7 +21,11 @@
 
         [Required]
         [Column(TypeName = "nvarchar(20)")]
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
+
+        [Required]
+        [Column(TypeName = "nvarchar(20)")]
+        public virtual RoleGroup RoleGroup { get; set; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }

@@ -25,7 +25,20 @@ namespace AdminPortal.Data.Models
 
         [Required]
         [Column(TypeName = "nvarchar(20)")]
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
+
+        [StringLength(150)]
+        public virtual string Address { get; set; }
+        [StringLength(45)]
+        public virtual string State { get; set; }
+        [StringLength(10)]
+        public virtual string PostalCode { get; set; }
+        [StringLength(45)]
+        public virtual string Country { get; set; }
+
+        public virtual string Lat { get; set; }
+        public virtual string Lng { get; set; }
+
 
         public virtual ICollection<User> Owners { get; set; }
 

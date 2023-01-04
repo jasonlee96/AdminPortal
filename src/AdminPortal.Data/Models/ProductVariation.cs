@@ -24,7 +24,7 @@ namespace AdminPortal.Data.Models
 
         [Required]
         [Column(TypeName = "nvarchar(20)")]
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
 
         [Required,ForeignKey(nameof(Product))]
         public virtual int ProductId { get; set; }
