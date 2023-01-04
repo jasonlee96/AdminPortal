@@ -31,7 +31,7 @@ namespace CommonService{
         {
             app.UseCors(CommonOrigin);
             app.UseApiVersioning();
-            app.UseExceptionHandler("/error-local-development");
+            app.UseExceptionHandler("/api-error-handling");
             var swaggerConfig = Configuration.GetSection("Swagger");
             if (swaggerConfig.GetValue<bool?>("Enabled").HasValue && swaggerConfig.GetValue<bool?>("Enabled").Value)
             {
