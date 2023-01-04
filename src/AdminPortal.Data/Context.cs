@@ -43,5 +43,36 @@ namespace AdminPortal.Data
             get;
             set;
         }
+
+        public virtual DbSet<Merchant> Merchants
+        {
+            get;
+            set;
+        }
+        public virtual DbSet<MerchantOwner> MerchantOwners
+        {
+            get;
+            set;
+        }
+        public virtual DbSet<Product> Products
+        {
+            get;
+            set;
+        }
+        public virtual DbSet<ProductCategory> ProductCategories
+        {
+            get;
+            set;
+        }
+        public virtual DbSet<ProductVariation> ProductVariations
+        {
+            get;
+            set;
+        }
+        public virtual DbSet<JwtToken> JwtTokens
+        {
+            get;
+            set;
+        }
     }
 }
