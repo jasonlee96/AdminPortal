@@ -74,5 +74,11 @@ namespace AdminPortal.Data
             get;
             set;
         }
+
+        public virtual DbSet<AuditTrail> AuditTrails
+        {
+            get;
+            set;
+        }
     }
 }
