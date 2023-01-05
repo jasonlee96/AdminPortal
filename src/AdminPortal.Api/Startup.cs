@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -23,7 +24,14 @@ namespace AdminPortal.Api;
         public void ConfigureServices(IServiceCollection services)
         {
             // Services
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContextFactory<Context>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                    .LogTo(Log.Information)
+                    .EnableSensitiveDataLogging(true)
+                    .EnableDetailedErrors(true);
+            });
 
             services.AddHttpClient();
             services.AddHttpContextAccessor();
