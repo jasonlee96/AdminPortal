@@ -22,5 +22,9 @@
 	<ItemGroup>
 		<Using Include="AdminPortal.Data.Enums" />
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Dtos\" />
+	</ItemGroup>
 
 </Project>

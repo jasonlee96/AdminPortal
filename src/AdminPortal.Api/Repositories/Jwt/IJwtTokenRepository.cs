@@ -1,4 +1,4 @@
-﻿namespace AdminPortal.Api.Repositories.Jwt
+﻿namespace AdminPortal.Api.Repositories
 {
     public interface IJwtTokenRepository
     {

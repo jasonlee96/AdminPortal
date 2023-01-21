@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace AdminPortal.Api.Repositories.Jwt
+namespace AdminPortal.Api.Repositories
 {
     public class JwtTokenRepository : TrailRepository, IJwtTokenRepository, IBaseRepository<JwtToken>
     {

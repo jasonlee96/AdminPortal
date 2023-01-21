@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdminPortal.Data\AdminPortal.Data.csproj" />
+    <ProjectReference Include="..\CommonService\CommonService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
