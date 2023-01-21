@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Serilog;
 
 namespace AdminPortal.Api.Repositories
 {
@@ -10,7 +12,22 @@ namespace AdminPortal.Api.Repositories
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
-
-        //public async Task CreateLog
+        public async Task CreateLog(AuditTrail data, string primaryKey = "Id", Context outerContext = null)
+        {
+            var context = outerContext ?? await _factory.CreateDbContextAsync();
+            try
+            {
+                await context.AddAsync(data);
+                await context.SaveChangesAsync();
+            }
+            catch
+            {
+                
+            }
+            finally
+            {
+                if (outerContext == null) await context.DisposeAsync();
+            }
+        }
     }
 }

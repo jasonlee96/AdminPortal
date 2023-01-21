@@ -1,4 +1,5 @@
-﻿using CommonService.Models;
+﻿using CommonService.Enums;
+using CommonService.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -44,6 +45,14 @@ namespace AdminPortal.Api.Controllers
             get
             {
                 return HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault()?.Value.Split(",").ToList() ?? new List<string>();
+            }
+        }
+
+        public LanguageCode Language
+        {
+            get
+            {
+                return HttpContext.User.Claims.Where(x => x.Type == "LANG").FirstOrDefault()?.Value.ToEnum<LanguageCode>() ?? LanguageCode.EN;
             }
         }
 

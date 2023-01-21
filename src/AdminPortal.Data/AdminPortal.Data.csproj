@@ -15,9 +15,16 @@
       <PrivateAssets></PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonService\CommonService.csproj" />
+  </ItemGroup>
 	
 	<ItemGroup>
 		<Using Include="AdminPortal.Data.Enums" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Dtos\" />
 	</ItemGroup>
 
 </Project>
