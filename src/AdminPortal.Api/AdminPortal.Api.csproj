@@ -17,12 +17,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdminPortal.Data\AdminPortal.Data.csproj" />
-    <ProjectReference Include="..\CommonService\CommonService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
 	  <Using Include="AdminPortal.Data" />
 	  <Using Include="AdminPortal.Data.Models" />
+	  <Using Include="AdminPortal.Data.Dtos" />
 	  <Using Include="CommonService" />
 	  <Using Include="CommonService.Models" />
 	  <Using Include="AdminPortal.Api.Domains" />

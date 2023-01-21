@@ -1,7 +1,7 @@
 ﻿namespace AdminPortal.Api.Repositories.Jwt
 {
-    public interface IJwtTokenRepository : IBaseRepository<JwtToken>
+    public interface IJwtTokenRepository
     {
-
+        Task<JwtToken> GetJwtTokenAsync(string token, Context outerContext = null);
     }
 }

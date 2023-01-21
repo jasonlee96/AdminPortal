@@ -80,5 +80,11 @@ namespace AdminPortal.Data
             get;
             set;
         }
+
+        public virtual DbSet<ErrorMessageTemplate> ErrorMessageTemplates
+        {
+            get;
+            set;
+        }
     }
 }
