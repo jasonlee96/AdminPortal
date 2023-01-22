@@ -8,9 +8,13 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<Folder Include="GraphQL\Mutations\" />
+		<Folder Include="GraphQL\Types\" />
+		<Folder Include="GraphQL\Queries\" />
 		<Folder Include="Services" />
 	</ItemGroup>
   <ItemGroup>
+    <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="7.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
@@ -27,6 +31,9 @@
 	  <Using Include="CommonService" />
 	  <Using Include="CommonService.Models" />
 	  <Using Include="AdminPortal.Api.Domains" />
+	  <Using Include="AdminPortal.Api.GraphQL.Queries" />
+	  <Using Include="AdminPortal.Api.GraphQL.Types" />
+	  <Using Include="AdminPortal.Api.GraphQL.Mutations" />
   </ItemGroup>
 
 </Project>

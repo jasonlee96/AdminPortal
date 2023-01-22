@@ -6,7 +6,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AdminPortal.Api.Repositories
 {
-    public class JwtTokenRepository : TrailRepository, IJwtTokenRepository, IBaseRepository<JwtToken>
+    public class JwtTokenRepository : TrailRepository, IJwtTokenRepository
     {
         private readonly IDbContextFactory<Context> _factory;
         private readonly ILogger<JwtTokenRepository> _logger;
