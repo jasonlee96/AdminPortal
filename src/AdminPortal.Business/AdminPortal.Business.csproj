@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdminPortal.Data\AdminPortal.Data.csproj" />
+  </ItemGroup>
+
+<ItemGroup>
+	<Using Include="AdminPortal.Data" />
+	<Using Include="AdminPortal.Data.Models" />
+	<Using Include="CommonService" />
+	<Using Include="CommonService.Models" />
+</ItemGroup>
+</Project>

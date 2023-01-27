@@ -1,20 +1,26 @@
-using AdminPortal.Api.Authorization;
+using AdminPortal.Data;
+using AdminPortal.GraphQL.Authorization;
+using CommonService;
 using CommonService.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
 using System.Text;
-using System.Text.Json.Serialization;
 
-namespace AdminPortal.Api;
-
-    public class Startup{
+namespace AdminPortal.GraphQL
+{
+    public class Startup
+    {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -22,8 +28,16 @@ namespace AdminPortal.Api;
 
         public IConfiguration Configuration { get; }
 
+        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddGraphQLServer()
+                .AddGraphQLTypes()
+                .AddQueryType();
+                //.AddMutationType()
+                //.AddSubscriptionType();
+
             // Services
             //services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContextFactory<Context>(options =>
@@ -37,7 +51,6 @@ namespace AdminPortal.Api;
             services.AddHttpClient();
             services.AddHttpContextAccessor();
 
-            services.AddGraphQLServer().AddApiTypes();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             // Auth Services
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
@@ -47,7 +60,7 @@ namespace AdminPortal.Api;
                 options.AddPolicy("SkAuthorization", policy => policy.Requirements.Add(new AdminAuthorizationRequirement()));
             });
 
-            services.InjectServicesAndRepositories(Assembly.GetExecutingAssembly());
+            services.InjectServicesAndRepositories(Assembly.Load("AdminPortal.Business"));
             var corsConfig = Configuration.GetSection("Cors");
             services.AddCors(options =>
             {
@@ -82,37 +95,6 @@ namespace AdminPortal.Api;
             });
 
 
-            //Swagger
-            var swaggerConfig = Configuration.GetSection("Swagger");
-            if (swaggerConfig.GetValue<bool?>("Enabled").HasValue && swaggerConfig.GetValue<bool?>("Enabled").Value)
-            {
-                services.AddSwaggerGen(s =>
-                {
-                    s.SwaggerDoc(swaggerConfig.GetValue<string>("Version"), new OpenApiInfo()
-                    {
-                        Title = swaggerConfig.GetValue<string>("Title"),
-                        Version = swaggerConfig.GetValue<string>("Version")
-                    });
-                    var jwtSecurityScheme = new OpenApiSecurityScheme
-                    {
-                        Scheme = "bearer",
-                        BearerFormat = "JWT",
-                        Name = "JWT Authentication",
-                        In = ParameterLocation.Header,
-                        Type = SecuritySchemeType.Http,
-                        Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
-
-                        Reference = new OpenApiReference
-                        {
-                            Id = JwtBearerDefaults.AuthenticationScheme,
-                            Type = ReferenceType.SecurityScheme
-                        }
-                    };
-                    s.AddSecurityDefinition("Bearer", jwtSecurityScheme);
-                    s.AddSecurityRequirement(new OpenApiSecurityRequirement { { jwtSecurityScheme, Array.Empty<string>() } });
-                });
-            }
-
             // JWT
             var jwtOptions = Configuration.GetOptions<JwtOption>("Jwt");
 
@@ -132,25 +114,25 @@ namespace AdminPortal.Api;
                     ValidateAudience = false
                 };
             });
-
-            // API
-            //services.AddApiVersioning();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseForwardedHeaders();
-            app.UseCommonApplicationBuilder();
-            // Configure the HTTP request pipeline.
-            /*if (env.IsDevelopment())
+            if (env.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseDeveloperExceptionPage();
             }
+
+            app.UseRouting();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGraphQL();
-            });*/
+            });
+
+
+            app.UseCommonApplicationBuilder();
         }
     }
+}
