@@ -28,7 +28,8 @@
 	  <Using Include="CommonService" />
 	  <Using Include="CommonService.Models" />
 	  <Using Include="AdminPortal.Api.Domains" />
-	  <Using Include="AdminPortal.Api.GraphQL.Types" />
+	  <Using Include="AdminPortal.Business.Repositories" />
+	  <Using Include="AdminPortal.Business.Services" />
 	  <Using Include="AutoMapper" />
   </ItemGroup>
 

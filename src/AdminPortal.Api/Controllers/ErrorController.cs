@@ -1,5 +1,4 @@
 ﻿using AdminPortal.Api.AppCache;
-using AdminPortal.Api.Repositories;
 using CommonService.Enums;
 using CommonService.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
