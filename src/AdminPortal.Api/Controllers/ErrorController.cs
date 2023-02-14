@@ -34,7 +34,7 @@ namespace AdminPortal.Api.Controllers
             {
                 var code = ((CustomizedException)context.Error).Code;
 
-                var error = await _appSetting.SelectErrorMessage(code, LanguageCode.EN);
+                var error = await _appSetting.SelectErrorMessage(code, Language); // retrieve language from jwt
                 if(error == null)
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, new CommonApiResponse()

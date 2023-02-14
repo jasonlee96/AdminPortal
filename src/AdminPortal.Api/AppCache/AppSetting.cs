@@ -11,12 +11,13 @@ namespace AdminPortal.Api.AppCache
         public List<ErrorMessageTemplate> ErrorsMessages { get; set; }
 
         public DateTime ExpiresAt { get; set; }
+        private readonly int EXPIRES_TIMELIMIT = 60;
 
         public AppSetting(IErrorMessageTemplateRepository errorMessageTemplateRepository) 
         {
             _errorMessageTemplateRepository = errorMessageTemplateRepository ?? throw new ArgumentException(nameof(errorMessageTemplateRepository));
             ExpiresAt = DateTime.MinValue;
-            Check();
+            Task.WaitAll(Check());
         }
 
         public async Task Check()
@@ -30,7 +31,9 @@ namespace AdminPortal.Api.AppCache
         public async Task Refresh()
         {
             ErrorsMessages.Clear();
-            ErrorsMessages = await _errorMessageTemplateRepository.GetAll();
+            ErrorsMessages.AddRange(await _errorMessageTemplateRepository.GetAll());
+
+            ExpiresAt = DateTime.Now.AddMinutes(EXPIRES_TIMELIMIT);
         }
 
         public async Task<ErrorMessageTemplate?> SelectErrorMessage(ErrorCode code, LanguageCode lang)
