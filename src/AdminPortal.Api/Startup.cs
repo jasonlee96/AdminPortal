@@ -1,3 +1,4 @@
+using AdminPortal.Api.AppCache;
 using AdminPortal.Api.Authorization;
 using CommonService.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,7 +38,8 @@ namespace AdminPortal.Api;
             services.AddHttpClient();
             services.AddHttpContextAccessor();
 
-            services.AddGraphQLServer().AddApiTypes();
+            services.AddSingleton<IAppSetting, AppSetting>();
+
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             // Auth Services
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
@@ -71,11 +73,11 @@ namespace AdminPortal.Api;
             });
 
 
-            /*services.AddControllers().AddJsonOptions(options =>
+            services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-            });*/
+            });
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
@@ -134,7 +136,7 @@ namespace AdminPortal.Api;
             });
 
             // API
-            //services.AddApiVersioning();
+            services.AddApiVersioning();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -143,7 +145,7 @@ namespace AdminPortal.Api;
             app.UseForwardedHeaders();
             app.UseCommonApplicationBuilder();
             // Configure the HTTP request pipeline.
-            /*if (env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -151,6 +153,6 @@ namespace AdminPortal.Api;
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGraphQL();
-            });*/
+            });
         }
     }

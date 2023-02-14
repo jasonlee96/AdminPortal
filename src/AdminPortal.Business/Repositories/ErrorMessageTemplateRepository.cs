@@ -14,6 +14,26 @@ namespace AdminPortal.Business.Repositories
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
+
+        public async Task<List<ErrorMessageTemplate>> GetAll(Context outerContext = null)
+        {
+            var context = outerContext ?? await _factory.CreateDbContextAsync();
+            try
+            {
+                return await(from x in context.ErrorMessageTemplates
+                             select x).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{MethodName}: Error thrown", nameof(GetAll));
+                throw ex;
+            }
+            finally
+            {
+                if (outerContext == null) await context.DisposeAsync();
+            }
+        }
+
         public async Task<ErrorMessageTemplate> GetErrorMessageAsync(ErrorCode code, LanguageCode lang, Context outerContext = null)
         {
             var context = outerContext ?? await _factory.CreateDbContextAsync();

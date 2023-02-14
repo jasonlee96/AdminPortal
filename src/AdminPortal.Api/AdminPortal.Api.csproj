@@ -6,11 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>bf8ca0ef-f356-4a82-b605-a94a237a7131</UserSecretsId>
   </PropertyGroup>
-
-	<ItemGroup>
-		<Folder Include="GraphQL\Mutations\" />
-		<Folder Include="GraphQL\DataLoaders\" />
-	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
@@ -22,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdminPortal.Business\AdminPortal.Business.csproj" />
     <ProjectReference Include="..\AdminPortal.Data\AdminPortal.Data.csproj" />
     <ProjectReference Include="..\CommonService\CommonService.csproj" />
   </ItemGroup>

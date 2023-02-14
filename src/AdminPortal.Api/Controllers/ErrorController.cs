@@ -1,4 +1,5 @@
-﻿using AdminPortal.Api.Repositories;
+﻿using AdminPortal.Api.AppCache;
+using AdminPortal.Api.Repositories;
 using CommonService.Enums;
 using CommonService.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
@@ -13,12 +14,12 @@ namespace AdminPortal.Api.Controllers
     public class ErrorController : BaseController
     {
         private readonly IConfiguration _configuration;
-        private readonly IErrorMessageTemplateRepository _messageRepo;
+        private readonly IAppSetting _appSetting;
 
-        public ErrorController(IConfiguration configuration, IErrorMessageTemplateRepository messageRepo)
+        public ErrorController(IConfiguration configuration, IAppSetting appSetting)
         {
             _configuration = configuration;
-            _messageRepo = messageRepo;
+            _appSetting = appSetting;
         }
 
         [Route("/api-error-handling")]
@@ -34,7 +35,7 @@ namespace AdminPortal.Api.Controllers
             {
                 var code = ((CustomizedException)context.Error).Code;
 
-                var error = await _messageRepo.GetErrorMessageAsync(code, Language);
+                var error = await _appSetting.SelectErrorMessage(code, LanguageCode.EN);
                 if(error == null)
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, new CommonApiResponse()
